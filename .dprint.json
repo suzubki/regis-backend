@@ -1,0 +1,27 @@
+{
+  "typescript": {
+    "quoteStyle": "alwaysDouble",
+    "indentWidth": 2,
+    "lineWidth": 200,
+    "useTabs": false,
+    "newLineKind": "lf",
+    "semiColons":"asi",
+    "trailingCommas":"onlyMultiLine",
+    "arrowFunction.useParentheses":"maintain",
+    "module.sortImportDeclarations":"caseInsensitive",
+    "importDeclaration.sortNamedImports":"caseInsensitive",
+    "importDeclaration.forceSingleLine":"true"
+  },
+  "excludes": [
+    "**/node_modules",
+    "**/*-lock.json",
+    "**/public"
+  ],
+  "includes": [
+    "src/**/*.{ts,js}",
+    "tests/**/*.{ts,js}"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.88.6.wasm"
+  ]
+}

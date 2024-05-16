@@ -9,8 +9,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch -r ts-node/register src/index.ts",
     "prepare": "husky",
-    "pre-commit": "",
+    "pre-commit": "lint-staged",
+    "format": "npx dprint fmt",
     "lint": "eslint ."
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "dprint fmt",
+      "eslint --fix"
+    ]
   },
   "engines": {
     "node": ">=20.6.0"
