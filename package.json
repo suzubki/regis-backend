@@ -2,12 +2,12 @@
   "name": "regis-backend",
   "version": "1.0.0",
   "description": "Regis backend. A simple backend for a registration system",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "rimraf ./dist && tsc",
     "start": "npx tsc & node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch -r ts-node/register src/index.ts",
+    "dev": "node --watch -r ts-node/register -r tsconfig-paths/register src/index.ts",
     "prepare": "husky",
     "pre-commit": "lint-staged",
     "format": "npx dprint fmt",
@@ -26,7 +26,8 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
@@ -40,6 +41,7 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.9.0"
   }
