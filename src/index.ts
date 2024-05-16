@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express"
+import { env } from "~/env"
 
 const app = express()
-const PORT = 3000
+const PORT = env.PORT
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello, TypeScript with Express!")
