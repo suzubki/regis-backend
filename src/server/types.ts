@@ -4,7 +4,7 @@ interface ParamsDictionary {
   [key: string]: string
 }
 
-export interface RegisRequest<_ = unknown, B = object, Q = object> extends Request<ParamsDictionary, never, B, Q> {
+export interface AuthorizedRequest<_ = unknown, B = object, Q = object> extends Request<ParamsDictionary, never, B, Q> {
   auth: {
     email: string
     id: string
