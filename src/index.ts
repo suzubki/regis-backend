@@ -1,7 +1,7 @@
 import express from "express"
 import morgan from "morgan"
 import { env } from "~/env"
-import { errorHandler, responseHandler } from "~/server/utils/functions"
+import { errorHandler, responseHandler } from "~/server/utils/errors"
 import routes from "./server/routes"
 
 const app = express()
