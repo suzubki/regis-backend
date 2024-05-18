@@ -11,6 +11,7 @@ const envSchema = z.object({
   DATABASE_PASSWORD: z.string(),
   DATABASE_HOST: z.string().default("localhost"),
   DATABASE_PORT: z.string().default("5432"),
+  JWT_SECRET: z.string(),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)
