@@ -1,29 +1,35 @@
-import { type Request, type Response } from "express"
+import { type NextFunction, type Request, type Response } from "express"
+import { InsertUser } from "~/data/model/schema"
 import AuthService from "~/server/services/auth.service"
 
 class AuthController {
-  static async signUp(req: Request, res: Response) {
+  static async signUp(req: Request, res: Response, next: NextFunction) {
     try {
-      const { email, name, picture_url } = req.body
+      const { email, name, picture_url } = req.body as Pick<InsertUser, "email" | "name" | "picture_url">
 
       const user = await AuthService.signUp({ email, name, picture_url })
 
-      return res.status(201).json(user)
-    } catch (error) {
-      console.log({ error })
+      res.locals.data = user
+      res.locals.status = 201
 
-      return res.status(500).json({ error: "An unexpected error happened" })
+      return next()
+    } catch (error) {
+      return next(error)
     }
   }
 
-  static async login(req: Request, res: Response) {
+  static async login(req: Request, res: Response, next: NextFunction) {
     try {
       const { email } = req.body
 
       const user = await AuthService.login(email)
 
-      return res.status(200).json(user)
+      res.locals.data = user
+      res.locals.status = 200
+
+      return next()
     } catch (error) {
+      return next(error)
     }
   }
 }

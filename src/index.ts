@@ -1,6 +1,7 @@
-import express, { type Request, type Response } from "express"
+import express from "express"
 import morgan from "morgan"
 import { env } from "~/env"
+import { errorHandler, responseHandler } from "~/server/utils/functions"
 import routes from "./server/routes"
 
 const app = express()
@@ -12,9 +13,9 @@ app.use(morgan("dev"))
 
 app.use("/", routes)
 
-app.get("/", async (req: Request, res: Response) => {
-  res.send("Hello, TypeScript with Express!")
-})
+app.use(responseHandler)
+
+app.use(errorHandler)
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`)
