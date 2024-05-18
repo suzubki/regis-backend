@@ -5,9 +5,9 @@ import AuthService from "~/server/services/auth.service"
 class AuthController {
   static async signUp(req: Request, res: Response, next: NextFunction) {
     try {
-      const { email, name, picture_url } = req.body as Pick<InsertUser, "email" | "name" | "picture_url">
+      const { email, name, password } = req.body as Pick<InsertUser, "email" | "name" | "password">
 
-      const user = await AuthService.signUp({ email, name, picture_url })
+      const user = await AuthService.signUp({ email, name, password })
 
       res.locals.data = user
       res.locals.status = 201

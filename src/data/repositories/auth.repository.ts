@@ -2,11 +2,11 @@ import { InsertUser, SelectUser, usersModel } from "~/data/model/schema"
 import { db } from "~/db"
 
 class AuthRepository {
-  static async create({ email, name, picture_url }: InsertUser) {
+  static async create({ email, name, password }: InsertUser) {
     const user = await db.insert(usersModel).values({
       name: name,
       email: email,
-      picture_url: picture_url,
+      password: password,
     }).returning()
 
     return user
