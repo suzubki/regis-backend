@@ -1,3 +1,4 @@
+import { eq } from "drizzle-orm"
 import { InsertUser, SelectUser, usersModel } from "~/data/model/schema"
 import { db } from "~/db"
 
@@ -9,15 +10,13 @@ class AuthRepository {
       password: password,
     }).returning()
 
-    return user
+    return user[0]
   }
 
-  static async findOne(id: Pick<SelectUser, "id">) {
-    const user = await db.query.usersModel.findFirst({
-      with: { id: id },
-    })
+  static async findOne({ email }: Pick<SelectUser, "email">) {
+    const user = await db.select().from(usersModel).where(eq(usersModel.email, email))
 
-    return user
+    return user[0]
   }
 }
 
