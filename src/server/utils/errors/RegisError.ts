@@ -1,4 +1,4 @@
-class RegisError extends Error {
+export class RegisError extends Error {
   public statusCode: number
   public message: string
 

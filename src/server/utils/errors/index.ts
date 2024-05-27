@@ -1,5 +1,5 @@
 import type { ErrorRequestHandler, NextFunction, Request, Response } from "express"
-import { UniqueConstraintError } from "./RegisError"
+import { RegisError, UniqueConstraintError } from "./RegisError"
 
 const createErrorResponse = (message: string, status: number) => {
   return {
@@ -13,6 +13,10 @@ export const errorHandler: ErrorRequestHandler = (err, _, res, __) => {
   if (err.code == "23505") {
     const error = new UniqueConstraintError(err.constraint)
     return res.status(error.statusCode).json(createErrorResponse(error.message, error.statusCode))
+  }
+
+  if (err instanceof RegisError) {
+    return res.status(err.statusCode).json(createErrorResponse(err.message, err.statusCode))
   }
 
   return res.status(err.status || 500).json(createErrorResponse(err.message, err.status || 500))
