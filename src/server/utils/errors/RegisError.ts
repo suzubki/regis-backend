@@ -1,3 +1,5 @@
+import { StrResponses } from "./StrResponses"
+
 export class RegisError extends Error {
   public statusCode: number
   public message: string
@@ -14,5 +16,17 @@ export class UniqueConstraintError extends RegisError {
   constructor(constraint: string) {
     const parseMessage = constraint.split("_").slice(1, -1).map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ") + " already exists"
     super(409, parseMessage)
+  }
+}
+
+export class WrongCredentialsError extends RegisError {
+  constructor() {
+    super(401, StrResponses.WRONG_CREDENTIALS)
+  }
+}
+
+export class UserNotFoundError extends RegisError {
+  constructor() {
+    super(404, StrResponses.USER_NOT_FOUND)
   }
 }
