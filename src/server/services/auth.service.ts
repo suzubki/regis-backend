@@ -1,7 +1,7 @@
 import { InsertUser } from "~/data/model/schema"
 import AuthRepository from "~/data/repositories/auth.repository"
-import { crypt } from "~/server/utils/common"
-import { RegisError } from "~/server/utils/errors/RegisError"
+import { crypt, signToken } from "~/server/utils/common"
+import { UserNotFoundError, WrongCredentialsError } from "~/server/utils/errors/RegisError"
 
 class AuthService {
   static async signUp({ email, name, password }: Omit<InsertUser, "id">) {
@@ -20,17 +20,20 @@ class AuthService {
 
   static async login({ email, password }: Pick<InsertUser, "email" | "password">) {
     const user = await AuthRepository.findOne({ email })
+    if (!user) throw new UserNotFoundError()
 
     const validPassword = await this.verifyPassword({ password, hashedPassword: user.password })
+    if (!validPassword) throw new WrongCredentialsError()
 
-    if (!validPassword) throw new RegisError(401, "Invalid email or password")
+    const accessToken = signToken.accessToken(user)
+    const refreshToken = signToken.refreshToken(user)
 
     const authenticatedUser = {
       id: user.id,
       name: user.name,
       email: user.email,
-      accessToken: "access_token",
-      refreshToken: "refresh_token",
+      accessToken: accessToken,
+      refreshToken: refreshToken,
     }
 
     return authenticatedUser
