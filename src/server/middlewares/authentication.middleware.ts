@@ -23,7 +23,7 @@ export const isAuthenticated = (req: CustomizedRequest, res: Response, next: Nex
   jwt.verify(accessToken, env.JWT_SECRET, async (err, payload) => {
     if (err || !payload || typeof payload !== "object" || !payload.id) return res.status(401).json({ error: "Invalid token" })
 
-    const user = await UserService.getUserById(payload.id)
+    const user = await UserService.getUserByEmail(payload.email)
     if (!user) return res.status(401).json({ error: "User not found" })
 
     if (!req.auth) {
