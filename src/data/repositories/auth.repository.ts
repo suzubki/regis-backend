@@ -5,6 +5,7 @@ import { db } from "~/db"
 class AuthRepository {
   static async create({ email, name, password }: InsertUser) {
     const user = await db.insert(usersModel).values({
+      id: usersModel.id.default,
       name: name,
       email: email,
       password: password,
