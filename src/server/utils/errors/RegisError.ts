@@ -30,3 +30,15 @@ export class UserNotFoundError extends RegisError {
     super(404, StrResponses.USER_NOT_FOUND)
   }
 }
+
+export class InvalidJWTError extends RegisError {
+  constructor() {
+    super(401, StrResponses.INVALID_TOKEN)
+  }
+}
+
+export class UnauthorizedError extends RegisError {
+  constructor() {
+    super(401, StrResponses.UNAUTHORIZED)
+  }
+}
