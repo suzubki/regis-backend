@@ -42,3 +42,9 @@ export class UnauthorizedError extends RegisError {
     super(401, StrResponses.UNAUTHORIZED)
   }
 }
+
+export class NoPayloadProvidedError extends RegisError {
+  constructor() {
+    super(401, StrResponses.NO_PAYLOAD_FOUND)
+  }
+}
