@@ -33,6 +33,24 @@ class AuthController {
       return next(error)
     }
   }
+
+  // Should validate
+  static async verifyToken(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { token, provider } = req.body
+      if (provider != "google") throw new Error()
+
+      const authenticatedUser = AuthService.verifyToken({ token, provider })!
+
+      res.locals.data = authenticatedUser
+      res.locals.status = 200
+
+      return next()
+    } catch (error) {
+      console.log({ error })
+      return next(error)
+    }
+  }
 }
 
 export default AuthController

@@ -7,5 +7,6 @@ const router = Router()
 
 router.post("/login", validateData(loginUserSchema), AuthController.login)
 router.post("/signup", validateData(createUserSchema), AuthController.signUp)
+router.post("/verifyToken", AuthController.verifyToken)
 
 export { router as authRouter }
